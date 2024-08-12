@@ -339,3 +339,36 @@ void user_menu(HashTable* ht) {
     } while (choice != 6);
 }
 
+void free_tree(Parcel* root) {
+    if (root != NULL) {
+        free_tree(root->left);
+        free_tree(root->right);
+        free(root->country);
+        free(root);
+    }
+}
+
+
+void free_hash_table(HashTable* ht) {
+    for (int i = 0; i < 127; i++) {
+        if (ht->table[i] != NULL) {
+            free_tree(ht->table[i]);
+        }
+    }
+}
+
+int main() {
+    HashTable ht;
+    for (int i = 0; i < 127; i++) {
+        ht.table[i] = NULL;
+    }
+    free_hash_table(&ht);
+
+    return 0;
+}
+
+void to_lowercase(char* str) {
+    for (int i = 0; str[i]; i++) {
+        str[i] = tolower(str[i]);
+    }
+}
