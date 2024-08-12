@@ -139,7 +139,7 @@ void load_data(HashTable* ht, const char* filename) {
 
     fclose(file);
 }
-<<<<<<< HEAD
+
 
 
 
@@ -202,5 +202,140 @@ void find_lightest_and_heaviest(Parcel* root, Parcel** lightest, Parcel** heavie
         find_lightest_and_heaviest(root->right, lightest, heaviest);
     }
 }
-=======
->>>>>>> 7
+
+void user_menu(HashTable* ht) {
+    int choice;
+    char country[30];
+    double weight;
+    unsigned long index;
+
+    
+    Parcel* cheapest = NULL, * most_expensive = NULL;
+    Parcel* lightest = NULL, * heaviest = NULL;
+    double total_weight = 0.0, total_value = 0.0;
+
+    do {
+        printf("\nMenu:\n");
+        printf("1. Display all parcels for a country\n");
+        printf("2. Display parcels heavier/lighter than a specific weight\n");
+        printf("3. Display total load and valuation for a country\n");
+        printf("4. Display cheapest and most expensive parcels\n");
+        printf("5. Display lightest and heaviest parcels\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        if (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a valid number.\n");
+            while (getchar() != '\n');
+            continue;
+        }
+
+        switch (choice) {
+        case 1:
+            printf("Enter country: ");
+            if (scanf("%s", country) != 1) {
+                printf("Invalid input.\n");
+                while (getchar() != '\n');
+                continue;
+            }
+            to_lowercase(country); 
+            index = hash_function(country);
+            display_all_parcels(ht->table[index]);
+            break;
+        case 2:
+            printf("Enter country: ");
+            if (scanf("%s", country) != 1) {
+                printf("Invalid input.\n");
+                while (getchar() != '\n'); 
+                continue;
+            }
+            to_lowercase(country); 
+            printf("Enter weight: ");
+            if (scanf("%lf", &weight) != 1) {
+                printf("Invalid input. Please enter a valid weight.\n");
+                while (getchar() != '\n'); 
+                continue;
+            }
+
+            int choice_weight;
+            printf("Enter 1 to display parcels heavier than the weight, or 2 for lighter: ");
+            if (scanf("%d", &choice_weight) != 1) {
+                printf("Invalid input. Please enter 1 or 2.\n");
+                while (getchar() != '\n'); 
+                continue;
+            }
+
+            index = hash_function(country);
+            if (choice_weight == 1) {
+                display_parcels_by_weight(ht->table[index], weight, 1);  
+            }
+            else if (choice_weight == 2) {
+                display_parcels_by_weight(ht->table[index], weight, 0);  
+            }
+            else {
+                printf("Invalid choice.\n");
+            }
+            break;
+        case 3:
+            printf("Enter country: ");
+            if (scanf("%s", country) != 1) {
+                printf("Invalid input.\n");
+                while (getchar() != '\n'); 
+                continue;
+            }
+            to_lowercase(country); 
+            index = hash_function(country);
+            total_weight = 0.0;  
+            total_value = 0.0;
+            display_total_load_and_valuation(ht->table[index], &total_weight, &total_value);
+            printf("Total weight: %.2f, Total value: %.2f\n", total_weight, total_value);
+            break;
+        case 4:
+            printf("Enter country: ");
+            if (scanf("%s", country) != 1) {
+                printf("Invalid input.\n");
+                while (getchar() != '\n'); 
+                continue;
+            }
+            to_lowercase(country); 
+            index = hash_function(country);
+            cheapest = NULL;  
+            most_expensive = NULL;
+            find_cheapest_and_most_expensive(ht->table[index], &cheapest, &most_expensive);
+            if (cheapest != NULL && most_expensive != NULL) {
+                printf("Cheapest parcel: Country: %s, Weight: %.2f, Value: %.2f\n", cheapest->country, cheapest->weight, cheapest->value);
+                printf("Most expensive parcel: Country: %s, Weight: %.2f, Value: %.2f\n", most_expensive->country, most_expensive->weight, most_expensive->value);
+            }
+            else {
+                printf("No parcels found.\n");
+            }
+            break;
+        case 5:
+            printf("Enter country: ");
+            if (scanf("%s", country) != 1) {
+                printf("Invalid input.\n");
+                while (getchar() != '\n'); 
+                continue;
+            }
+            to_lowercase(country); 
+            index = hash_function(country);
+            lightest = NULL;  
+            heaviest = NULL;
+            find_lightest_and_heaviest(ht->table[index], &lightest, &heaviest);
+            if (lightest != NULL && heaviest != NULL) {
+                printf("Lightest parcel: Country: %s, Weight: %.2f, Value: %.2f\n", lightest->country, lightest->weight, lightest->value);
+                printf("Heaviest parcel: Country: %s, Weight: %.2f, Value: %.2f\n", heaviest->country, heaviest->weight, heaviest->value);
+            }
+            else {
+                printf("No parcels found.\n");
+            }
+            break;
+        case 6:
+            printf("Exiting...\n");
+            break;
+        default:
+            printf("Invalid choice. Please try again.\n");
+            while (getchar() != '\n'); 
+        }
+    } while (choice != 6);
+}
+
