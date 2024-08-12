@@ -129,6 +129,7 @@ void load_data(HashTable* ht, const char* filename) {
 
     fclose(file);
 }
+<<<<<<< HEAD
 
 
 
@@ -191,3 +192,5 @@ void find_lightest_and_heaviest(Parcel* root, Parcel** lightest, Parcel** heavie
         find_lightest_and_heaviest(root->right, lightest, heaviest);
     }
 }
+=======
+>>>>>>> 7df48b525916d865603c22ba2b6a8fa0239fb895
