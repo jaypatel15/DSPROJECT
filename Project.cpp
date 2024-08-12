@@ -362,6 +362,8 @@ int main() {
     for (int i = 0; i < 127; i++) {
         ht.table[i] = NULL;
     }
+    load_data(&ht, "couriers.txt");
+    user_menu(&ht);
     free_hash_table(&ht);
 
     return 0;
