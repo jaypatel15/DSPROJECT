@@ -122,7 +122,17 @@ void load_data(HashTable* ht, const char* filename) {
 
         token = strtok(NULL, ",");
 
+      if (token != NULL)
+       {
+                value = atof(token);
 
+              
+                if (value < 10 || value > 2000)
+                {
+                fprintf(stderr, "Invalid value: %.2f. Skipping entry.\n", value);
+                continue;
+                }
+      }
 
         insert_into_hash_table(ht, country, weight, value);
     }
@@ -193,4 +203,4 @@ void find_lightest_and_heaviest(Parcel* root, Parcel** lightest, Parcel** heavie
     }
 }
 =======
->>>>>>> 7df48b525916d865603c22ba2b6a8fa0239fb895
+>>>>>>> 7
