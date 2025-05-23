@@ -10,12 +10,12 @@ SENG1050 - Data Structures Project Checklist
 - Clean up all allocated memory before exiting the program.
 2. Prototype
 - Create the user menu with the following options:
-- - Enter country name and display all parcel details.
-- - Enter country and weight pair, display parcels with weight higher/lower than the entered weight.
-- - Display the total parcel load and valuation for the country.
-- - Display the cheapest and most expensive parcel details for a country.
-- - Display the lightest and heaviest parcel for the country.
-- - Exit the application.
+- Enter country name and display all parcel details.
+-  Enter country and weight pair, display parcels with weight higher/lower than the entered weight.
+-  Display the total parcel load and valuation for the country.
+-  Display the cheapest and most expensive parcel details for a country.
+-  Display the lightest and heaviest parcel for the country.
+-  Exit the application.
 - Ensure that no unnecessary code duplication occurs.
 3. Value Constraints
 - Ensure that the destination country name does not exceed 20 characters.
